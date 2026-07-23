@@ -55,32 +55,24 @@ CLAUDE.local.md
 # Quarto rendering artifacts
 .quarto/
 
-# quality_reports/ — per-project session logs, plans, specs, merges, audits,
-# diagnoses. The directory structure ships in the template (via .gitkeep), but
-# the content is PROJECT-INTERNAL and shouldn't be inherited by forks.
-# (diagnoses/ in particular may hold real data values/paths — never ship them;
-#  audits/ are repo-specific gap analyses, noise for a forker.)
-quality_reports/plans/*
-quality_reports/specs/*
-quality_reports/session_logs/*
-quality_reports/merges/*
-quality_reports/decisions/*
-quality_reports/checkpoints/*
-quality_reports/preregistrations/*
+# quality_reports/ — this is a working dissertation repo (not a template
+# being maintained for forkers), so plans / specs / session logs / decisions /
+# preregistrations / merges DO commit so they sync across machines (per
+# .claude/rules/meta-governance.md "Cross-Machine Access" table).
+#
+# audits/ and diagnoses/ stay ignored: audits are transient gap-analyses
+# and diagnoses can contain real data values / file paths captured during
+# debugging.
 quality_reports/audits/*
 quality_reports/diagnoses/*
-!quality_reports/plans/.gitkeep
-!quality_reports/specs/.gitkeep
-!quality_reports/session_logs/.gitkeep
-!quality_reports/merges/.gitkeep
-!quality_reports/decisions/.gitkeep
-!quality_reports/checkpoints/.gitkeep
-!quality_reports/preregistrations/.gitkeep
+quality_reports/checkpoints/*
 !quality_reports/audits/.gitkeep
 !quality_reports/diagnoses/.gitkeep
+!quality_reports/checkpoints/.gitkeep
 
-# R analysis outputs (generated artifacts; keep scripts, ignore outputs)
-scripts/R/_outputs/
+# R analysis outputs (per-paper) — generated artifacts; keep .gitkeep, ignore the rest
+Papers/*/_outputs/*
+!Papers/*/_outputs/.gitkeep
 
 # Output artifacts — uncomment lines below based on your preference
 # *.rds

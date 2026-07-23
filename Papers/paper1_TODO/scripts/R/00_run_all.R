@@ -5,7 +5,7 @@
 #   - Fixed seed set below.
 #   - Project root resolved via here::here() — no setwd().
 #   - Every package loaded under a renv (or DESCRIPTION) lockfile.
-#   - Outputs written to scripts/R/_outputs/ and listed at the end.
+#   - Outputs written to _outputs/ (paper-root relative) and listed at the end.
 #   - sessionInfo() captured so reviewers can verify the environment.
 # =============================================================================
 
@@ -19,11 +19,12 @@ suppressPackageStartupMessages({
 
 # Seed applies to everything downstream. Change ONLY with a reason in the
 # session log — this is load-bearing for identical numerical outputs.
-PROJECT_SEED <- 20260413L
+PROJECT_SEED <- 20260615L
 set.seed(PROJECT_SEED)
 
-# Output directory (create if missing; treat as ephemeral).
-OUT_DIR <- here("scripts", "R", "_outputs")
+# Output directory. `.here` sentinel in the paper root makes here::here()
+# resolve to Papers/paperN_<slug>/, so outputs land in the paper's _outputs/.
+OUT_DIR <- here("_outputs")
 dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
 
 # ---- Pipeline --------------------------------------------------------------
@@ -52,7 +53,7 @@ pipeline <- c(
 message("Running reproducibility pipeline with seed ", PROJECT_SEED, "...")
 
 timings <- vapply(pipeline, function(script) {
-  path <- here("scripts", "R", script)
+  path <- here("scripts", "R", script)  # paper-root-relative via .here sentinel
   if (!file.exists(path)) {
     stop("Missing pipeline script: ", path)
   }
