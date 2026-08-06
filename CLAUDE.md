@@ -1,9 +1,9 @@
 # CLAUDE.MD — Foreign Aid Competition: US–China (Dissertation)
 
-**Project:** Foreign Aid Competition: US–China *(working title — refine when papers' framing firms up)*
+**Project:** Foreign Aid Competition: US–China *(working title — refine when the chapters' framing firms up)*
 **Field:** Political Science / International Relations
 **Institution:** * University of Wisconsin-Madison 
-**Format:** Hybrid dissertation — ~3 related papers, between traditional book-style and pure 3-paper.
+**Format:** Monograph (single-argument book). `Dissertation/analyses/NN_*/` is a working-style scaffold that maps onto the empirical chapters, not a set of separate papers. (Decided 2026-06-15 — see `quality_reports/decisions/2026-06-15_monograph-drop-cases.md`.)
 **Toolchain:** R (Positron) for analysis · LaTeX/XeLaTeX for writing · PDF as the canonical artifact.
 **Branch:** main
 
@@ -31,18 +31,25 @@ my-project/
 ├── CLAUDE.MD                              # This file
 ├── MEMORY.md                              # Working memory + [LEARN] entries
 ├── README.md                              # Project-facing readme
-├── Bibliography_base.bib                  # Shared bibliography (all 3 papers cite from here)
-├── Papers/                                # Dissertation papers (primary work)
-│   ├── README.md
-│   ├── paper1_TODO/
-│   │   ├── manuscript.tex                 # the paper itself; \input{../../Preambles/header.tex}
-│   │   ├── scripts/R/                     # 00_run_all.R + 01_load → 05_figures.R
-│   │   ├── _outputs/                      # R intermediate .rds (gitignored except .gitkeep)
-│   │   ├── figures/                       # PDF figures sourced into manuscript
-│   │   ├── tables/                        # LaTeX table fragments (\input{})
-│   │   └── README.md                      # paper-level overview
-│   ├── paper2_TODO/                       # same shape
-│   └── paper3_TODO/                       # same shape
+├── Bibliography_base.bib                  # Shared bibliography (the whole monograph cites from here)
+├── Dissertation/                          # The monograph (primary work)
+│   ├── manuscript.tex                     # top-level assembly; \input{header}, \include{chapters/chNN_*}
+│   ├── chapters/                          # ch01_intro → ch05_conclusion (stubs; fill over time)
+│   ├── analyses/                          # compartmentalized R work, one dir per empirical piece
+│   │   ├── 01_quant_main/                 # Ch 4 core: short-run allocation models
+│   │   │   ├── scripts/R/                 # 00_run_all.R + 01_load → 05_figures.R
+│   │   │   ├── _outputs/                  # R intermediate .rds (gitignored except .gitkeep)
+│   │   │   ├── .here                      # here::here() resolves to this analysis root
+│   │   │   └── README.md
+│   │   ├── 02_h2_private_goods/           # H2: NGO vs government delivery (stub)
+│   │   ├── 03_iv_robustness/              # Dreher/Zeitz steel × exposure IV (stub)
+│   │   ├── 04_var_dynamics/               # panel VAR / long-run co-evolution (stub)
+│   │   └── 05_advisor_reframe/            # predict-and-compare side deliverable (SPEC.md; parked)
+│   ├── figures/                           # finished PDFs \includegraphics'd into chapters
+│   ├── tables/                            # LaTeX table fragments (\input{}) into chapters
+│   ├── data/                              # raw + interim (gitignored except .gitkeep)
+│   ├── .here                              # here() at the Dissertation level
+│   └── README.md                          # what's here, compile command, chapter/analysis status
 ├── Preambles/header.tex                   # Shared LaTeX preamble (palette, packages)
 ├── Slides/                                # Job talks / conference decks (dormant unless invoked)
 ├── Quarto/                                # RevealJS mirror infra (dormant)
@@ -65,18 +72,18 @@ my-project/
 ## Commands
 
 ```bash
-# Compile a paper (3-pass XeLaTeX from inside the paper directory)
-cd Papers/paper1_TODO && \
-  TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex && \
-  BIBINPUTS=../..:$BIBINPUTS bibtex manuscript && \
-  TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex && \
-  TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
+# Compile the monograph (3-pass XeLaTeX from inside Dissertation/)
+cd Dissertation && \
+  TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex && \
+  BIBINPUTS=..:$BIBINPUTS bibtex manuscript && \
+  TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex && \
+  TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
 
-# Run a paper's analysis end-to-end
-cd Papers/paper1_TODO && Rscript scripts/R/00_run_all.R
+# Run an analysis end-to-end (each analyses/NN_*/ is self-contained via its .here)
+cd Dissertation/analyses/01_quant_main && Rscript scripts/R/00_run_all.R
 
 # Quality score (works on .tex or .qmd)
-python scripts/quality_score.py Papers/paper1_TODO/manuscript.tex
+python scripts/quality_score.py Dissertation/manuscript.tex
 ```
 
 ---
@@ -114,15 +121,25 @@ The full skills table lives in [README.md](README.md).
 
 ---
 
-## Paper Progress
+## Chapter + Analyses Progress
 
-| Slug | Stage | Manuscript | Lead R script |
-|------|-------|------------|---------------|
-| paper1_TODO | scaffold | `Papers/paper1_TODO/manuscript.tex` | `Papers/paper1_TODO/scripts/R/00_run_all.R` |
-| paper2_TODO | scaffold | `Papers/paper2_TODO/manuscript.tex` | `Papers/paper2_TODO/scripts/R/00_run_all.R` |
-| paper3_TODO | scaffold | `Papers/paper3_TODO/manuscript.tex` | `Papers/paper3_TODO/scripts/R/00_run_all.R` |
+The manuscript is `Dissertation/manuscript.tex`; it `\include`s the chapters below.
 
-*Rename `_TODO` slugs to real working titles once they firm up — mass `git mv` + grep-replace in this table.*
+| Chapter | File | Stage |
+|---------|------|-------|
+| 1. Introduction | `Dissertation/chapters/ch01_intro.tex` | stub |
+| 2. Related Literature | `Dissertation/chapters/ch02_lit.tex` | stub |
+| 3. Theory | `Dissertation/chapters/ch03_theory.tex` | stub |
+| 4. Quantitative core | `Dissertation/chapters/ch04_quant_main.tex` | stub (empirical burden) |
+| 5. Conclusion | `Dissertation/chapters/ch05_conclusion.tex` | stub |
+
+| Analysis | Lead R script | Stage |
+|----------|---------------|-------|
+| 01 short-run allocation (Ch 4) | `Dissertation/analyses/01_quant_main/scripts/R/00_run_all.R` | script skeleton, no data |
+| 02 H2 private vs public goods | *(copy skeleton from 01 when starting)* | not started |
+| 03 IV robustness (steel × exposure) | *(copy skeleton from 01 when starting)* | not started |
+| 04 long-run dynamics (panel VAR) | *(copy skeleton from 01 when starting)* | not started |
+| 05 advisor predict-and-compare reframe | `Dissertation/analyses/05_advisor_reframe/SPEC.md` | spec only (parked) |
 
 ---
 
@@ -134,8 +151,7 @@ The full skills table lives in [README.md](README.md).
 
 ## Deferred customizations (next-session candidates)
 
-- Rename `Papers/paper{1,2,3}_TODO/` once working titles firm up.
 - Customize `.claude/agents/domain-reviewer.md` for political-science / IR review lenses (template ships generic).
 - Add target poli-sci / IR journals to `.claude/references/journal-profiles.md` (AJPS, APSR, JoP, ISQ, World Politics, IO, etc.) once a journal is targeted, to calibrate `/review-paper --peer`.
-- Pick a single ggplot2 theme + color palette for paper figures once the first figure is built.
+- Pick a single ggplot2 theme + color palette for the dissertation figures once the first figure is built.
 - Import bibliography from Zotero / existing `.bib` into `Bibliography_base.bib`.
