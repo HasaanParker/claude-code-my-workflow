@@ -70,9 +70,13 @@ quality_reports/checkpoints/*
 !quality_reports/diagnoses/.gitkeep
 !quality_reports/checkpoints/.gitkeep
 
-# R analysis outputs (per-paper) — generated artifacts; keep .gitkeep, ignore the rest
-Papers/*/_outputs/*
-!Papers/*/_outputs/.gitkeep
+# R analysis outputs (per-analysis) — generated artifacts; keep .gitkeep, ignore the rest
+Dissertation/analyses/*/_outputs/*
+!Dissertation/analyses/*/_outputs/.gitkeep
+
+# Dissertation raw + interim data — bring extracts in locally; keep .gitkeep
+Dissertation/data/*
+!Dissertation/data/.gitkeep
 
 # Output artifacts — uncomment lines below based on your preference
 # *.rds

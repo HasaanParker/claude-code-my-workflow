@@ -1,0 +1,66 @@
+% =============================================================================
+% chapters/ch04_quant_main.tex — Quantitative core (the empirical burden)
+% Pulled into manuscript.tex via \include{chapters/ch04_quant_main}.
+%
+% This chapter carries the dissertation's empirical weight (the qualitative case
+% chapters were dropped). Every number here must trace to an R pipeline under
+% Dissertation/analyses/NN/. Wiring convention:
+%   - Table fragments:  \input{tables/<name>.tex}
+%     produced by analyses/01_quant_main/scripts/R/04_tables.R, then copied/
+%     written into Dissertation/tables/.
+%   - Inline numbers:   annotate with  %% source: analyses/NN/scripts/R/03_analyze.R
+%     so /audit-reproducibility can check the paper<->code graph.
+% =============================================================================
+\chapter{Aid Competition across Spheres of Influence: Quantitative Evidence}
+\label{ch:quant}
+
+\textit{Placeholder.} The empirical core. Short-run allocation models by region,
+an instrumental-variables strategy for Chinese aid exposure, and a long-run
+dynamics test establish whether US and Chinese aid race or diverge across
+contested spheres.
+
+\section{Data}
+\label{sec:quant-data}
+\textit{Placeholder.} AidData Global Chinese Development Finance (GCDF) for
+Chinese official finance; OECD-DAC Creditor Reporting System (CRS) for US and
+other DAC aid. Unit of analysis: recipient-country $\times$ year. Sample period,
+coverage, and the sphere-of-influence covariates defined in
+Chapter~\ref{ch:theory}.
+
+\section{Empirical strategy}
+\label{sec:quant-strategy}
+\textit{Placeholder.} Short-run allocation model with country and year fixed
+effects; identification concerns; the Dreher/Zeitz-style shift-share instrument
+(Chinese steel production $\times$ recipient exposure) developed in
+\texttt{analyses/03\_iv\_robustness/}; and the panel-VAR / Granger test of
+long-run co-evolution in \texttt{analyses/04\_var\_dynamics/}.
+
+\section{Results}
+\label{sec:quant-results}
+\textit{Placeholder.} Main short-run results table:
+
+% \input{tables/table_main.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
+
+\textit{Placeholder.} Report the headline pattern here once the pipeline is run:
+a positive US--China aid correlation in Africa
+(prospectus: $+0.113$)                                %% source: analyses/01_quant_main/scripts/R/03_analyze.R
+and negative correlations outside Africa, consistent with H1.
+
+\section{Instrumental-variables robustness}
+\label{sec:quant-iv}
+\textit{Placeholder.} IV estimates and first-stage diagnostics:
+
+% \input{tables/table_iv.tex}       %% source: analyses/03_iv_robustness/scripts/R/04_tables.R
+
+\section{Long-run dynamics}
+\label{sec:quant-var}
+\textit{Placeholder.} Panel-VAR impulse responses / Granger-causality:
+
+% \input{tables/table_var.tex}      %% source: analyses/04_var_dynamics/scripts/R/04_tables.R
+% \includegraphics{fig_irf}         %% source: analyses/04_var_dynamics/scripts/R/05_figures.R
+
+\section{Robustness}
+\label{sec:quant-robustness}
+\textit{Placeholder.} Specification curve / multiverse, leave-one-out by region,
+alternative clustering and inference (per the project's inference-robustness
+conventions).

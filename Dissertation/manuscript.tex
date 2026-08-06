@@ -1,0 +1,80 @@
+% =============================================================================
+% Dissertation/manuscript.tex — top-level monograph assembly
+%
+% Compile from inside this directory (3-pass XeLaTeX + bibtex):
+%   TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
+%   BIBINPUTS=..:$BIBINPUTS bibtex manuscript
+%   TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex  (x2)
+%
+% STRUCTURE. This is a monograph, not a 3-paper collection. Chapters live in
+% chapters/ and are pulled in with \include{} (each \include starts a new
+% page and lets us compile a single chapter with \includeonly during drafting).
+%
+% SINGLE SOURCE OF TRUTH. This manuscript is authoritative. Every numeric claim
+% must trace back to the R pipelines under analyses/NN/ via:
+%   - \input{tables/<name>.tex}          for regression tables
+%   - %% source: analyses/01_quant_main/scripts/R/03_analyze.R   for inline numbers
+% so /audit-reproducibility can verify them across the paper<->code graph.
+% =============================================================================
+
+\documentclass[12pt]{report}
+
+% Shared dissertation preamble (palette, packages, math, hyperref).
+% Found via TEXINPUTS=../Preambles; see Preambles/header.tex.
+\input{header}
+
+% --- Monograph-specific packages --------------------------------------------
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\doublespacing
+
+% --- Figure paths (relative to this file) -----------------------------------
+% Chapters \includegraphics figures from Dissertation/figures/. Analyses write
+% their finished PDFs there; \input{} table fragments come from Dissertation/tables/.
+\graphicspath{{figures/}}
+
+% --- Front matter -----------------------------------------------------------
+\title{US--China Aid Competition in the 21st Century:\\
+       \large Aid Races across Spheres of Influence}
+\author{Hasaan Parker \\ \small{Department of Political Science, University of Wisconsin--Madison}}
+\date{\today}
+
+% During drafting, uncomment and list the chapter(s) you want to compile fast:
+% \includeonly{chapters/ch04_quant_main}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+\textit{Abstract placeholder.} A single-argument statement of the dissertation:
+the question (how does US--China donor competition reshape aid allocation
+across contested spheres of influence?), the theory (aid races vs.\ aid
+withdrawal), the empirical strategy (short-run allocation models plus a
+long-run dynamics test), and the headline finding (a positive US--China aid
+correlation in Africa, negative elsewhere). Aim for 150--250 words once written.
+\end{abstract}
+
+\tableofcontents
+
+% =============================================================================
+% Chapters. Each file begins with \chapter{...}. Fill over time; the argument
+% is a single through-line, not three separable papers.
+% =============================================================================
+\include{chapters/ch01_intro}
+\include{chapters/ch02_lit}
+\include{chapters/ch03_theory}
+\include{chapters/ch04_quant_main}
+\include{chapters/ch05_conclusion}
+
+% =============================================================================
+% Bibliography. Single shared file at the repo root (../Bibliography_base.bib);
+% found via BIBINPUTS=.. at bibtex time. apsr is the political-science default;
+% swap to plainnat / apalike if apsr.bst is unavailable in your TeX install.
+% =============================================================================
+\bibliographystyle{apsr}
+\bibliography{../Bibliography_base}
+
+\end{document}

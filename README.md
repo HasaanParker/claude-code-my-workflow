@@ -2,14 +2,14 @@
 
 A PhD dissertation in political science by **Hasaan Parker**.
 
-A ~3-paper hybrid dissertation (between traditional book and pure 3-paper format) on **foreign aid competition between the United States and China** — donor strategy, recipient response, and the political economy of aid in an era of great-power competition.
+A **monograph** (single-argument book) on **foreign aid competition between the United States and China** — donor strategy, recipient response, and the political economy of aid in an era of great-power competition. The empirical chapters are backed by compartmentalized R pipelines under `Dissertation/analyses/`.
 
 ## Layout
 
 | Path | What's there |
 |---|---|
-| [`Papers/`](Papers/) | The three dissertation papers, each self-contained (`manuscript.tex`, `scripts/R/`, `_outputs/`, `figures/`, `tables/`). See [`Papers/README.md`](Papers/README.md). |
-| [`Bibliography_base.bib`](Bibliography_base.bib) | Shared bibliography (all three papers cite from this one file). |
+| [`Dissertation/`](Dissertation/) | The monograph: `manuscript.tex` assembling `chapters/`, with compartmentalized R work under `analyses/NN_*/` (each with `scripts/R/`, `_outputs/`, `.here`). See [`Dissertation/README.md`](Dissertation/README.md). |
+| [`Bibliography_base.bib`](Bibliography_base.bib) | Shared bibliography (the whole monograph cites from this one file). |
 | [`Preambles/header.tex`](Preambles/header.tex) | Shared LaTeX preamble. |
 | `Slides/`, `Quarto/`, `docs/` | Slide infrastructure (dormant unless prepping a job talk / conference deck). |
 | [`scripts/`](scripts/) | Repo-wide tooling (`quality_score.py`, `validate-setup.sh`, palette / surface-sync checks). |
@@ -17,24 +17,24 @@ A ~3-paper hybrid dissertation (between traditional book and pure 3-paper format
 | [`templates/`](templates/) | Session log, spec, quality-report, passport templates. |
 | [`master_supporting_docs/`](master_supporting_docs/) | Reference papers and prior source materials. |
 
-## Compiling a paper
+## Compiling the monograph
 
-From inside the paper directory:
+From inside `Dissertation/`:
 
 ```bash
-cd Papers/paper1_TODO
-TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
-BIBINPUTS=../..:$BIBINPUTS bibtex manuscript
-TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
-TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
+cd Dissertation
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
+BIBINPUTS=..:$BIBINPUTS bibtex manuscript
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode manuscript.tex
 ```
 
-Or via the workflow: `/compile-latex Papers/paper1_TODO/manuscript`.
+Or via the workflow: `/compile-latex Dissertation/manuscript`.
 
-## Running a paper's analysis
+## Running an analysis
 
 ```bash
-cd Papers/paper1_TODO && Rscript scripts/R/00_run_all.R
+cd Dissertation/analyses/01_quant_main && Rscript scripts/R/00_run_all.R
 ```
 
 ## Working with Claude Code
