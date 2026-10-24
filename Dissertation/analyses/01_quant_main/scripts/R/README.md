@@ -11,8 +11,8 @@ individually unless debugging.
   root — so `here("_outputs")` writes to
   `Dissertation/analyses/01_quant_main/_outputs/` regardless of where you run R
   from. Never `setwd()`. Cross-cutting data lives under `Dissertation/data/`
-  (reached with `here("..", "..", "..", "data")` or a project-level path helper
-  when one is added).
+  (reached with `here("..", "..", "data")` — two levels up: `analyses/`, then
+  `Dissertation/`).
 - **Seed** set once in `00_run_all.R` (`PROJECT_SEED <- 20260615L`). Stochastic
   scripts re-seed locally from `PROJECT_SEED` so direct debugging runs are still
   deterministic. Change only with a recorded reason in the session log (per
@@ -54,13 +54,17 @@ Expected outputs:
 |---|---|
 | `_outputs/results.rds` | Always |
 | `_outputs/sessionInfo.txt` | Always |
-| `_outputs/fig_main.pdf` | Always (move to `Dissertation/figures/` when wired into the manuscript) |
-| `_outputs/table_main.tex` | Always (move to `Dissertation/tables/` when wired into the manuscript) |
+| `_outputs/diagnostics/*.pdf` | Always (EDA; gitignored, not wired into the manuscript) |
+| `_outputs/table_main.tex`, `_outputs/table_controls.tex` | Always |
+| `_outputs/fig_coef_by_region.pdf` | Always |
 
-The starter `04_tables.R` / `05_figures.R` write to `_outputs/`. When you have a
-real table/figure to include in a chapter, either change the script's
-destination to `here("..", "..", "..", "tables")` / `here("..", "..", "..", "figures")`,
-or copy/move on each run.
+`04_tables.R` / `05_figures.R` write each finished table/figure to **two**
+places: the gitignored `_outputs/` copy (the pipeline-contract artifact
+`/audit-reproducibility` and re-run diffing use) and the committed
+`Dissertation/tables/` / `Dissertation/figures/` copy that
+`chapters/ch04_quant_main.tex` actually `\input{}`s / `\includegraphics{}`s.
+Both are written via `here("..", "..", "tables")` / `here("..", "..", "figures")`
+— two levels up from `analyses/01_quant_main/` to `Dissertation/`.
 
 ## Starting a sibling analysis (02–05)
 
