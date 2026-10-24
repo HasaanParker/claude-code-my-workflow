@@ -129,16 +129,16 @@ The manuscript is `Dissertation/manuscript.tex`; it `\include`s the chapters bel
 |---------|------|-------|
 | 1. Introduction | `Dissertation/chapters/ch01_intro.tex` | stub |
 | 2. Related Literature | `Dissertation/chapters/ch02_lit.tex` | stub |
-| 3. Theory | `Dissertation/chapters/ch03_theory.tex` | stub |
-| 4. Quantitative core | `Dissertation/chapters/ch04_quant_main.tex` | stub (empirical burden) |
+| 3. Theory | `Dissertation/chapters/ch03_theory.tex` | SOI operationalization + H1 drafted; H2 still stub |
+| 4. Quantitative core | `Dissertation/chapters/ch04_quant_main.tex` | drafted with real results (region + SOI-bloc cuts, VAR); robustness section still placeholder |
 | 5. Conclusion | `Dissertation/chapters/ch05_conclusion.tex` | stub |
 
 | Analysis | Lead R script | Stage |
 |----------|---------------|-------|
-| 01 short-run allocation (Ch 4) | `Dissertation/analyses/01_quant_main/scripts/R/00_run_all.R` | script skeleton, no data |
+| 01 short-run allocation (Ch 4) | `Dissertation/analyses/01_quant_main/scripts/R/00_run_all.R` | **run** (2026-09-14) — FE model + controls, region AND alignment-based-SOI cuts; neither recovers H1's predicted sign-flip (not resolved) |
 | 02 H2 private vs public goods | *(copy skeleton from 01 when starting)* | not started |
-| 03 IV robustness (steel × exposure) | *(copy skeleton from 01 when starting)* | not started |
-| 04 long-run dynamics (panel VAR) | *(copy skeleton from 01 when starting)* | not started |
+| 03 IV robustness (steel × exposure) | `Dissertation/analyses/03_iv_robustness/scripts/R/00_run_all.R` | **run** (2026-09-15) — **negative result**: no first stage under a predetermined share; see its README |
+| 04 long-run dynamics (panel VAR) | `Dissertation/analyses/04_var_dynamics/scripts/R/00_run_all.R` | **run** (2026-09-14) — system GMM; Hansen-J caveat, see its README |
 | 05 advisor predict-and-compare reframe | `Dissertation/analyses/05_advisor_reframe/SPEC.md` | spec only (parked) |
 
 ---
@@ -153,5 +153,8 @@ The manuscript is `Dissertation/manuscript.tex`; it `\include`s the chapters bel
 
 - Customize `.claude/agents/domain-reviewer.md` for political-science / IR review lenses (template ships generic).
 - Add target poli-sci / IR journals to `.claude/references/journal-profiles.md` (AJPS, APSR, JoP, ISQ, World Politics, IO, etc.) once a journal is targeted, to calibrate `/review-paper --peer`.
-- Pick a single ggplot2 theme + color palette for the dissertation figures once the first figure is built.
 - Import bibliography from Zotero / existing `.bib` into `Bibliography_base.bib`.
+
+**Resolved (2026-09-14):** ggplot2 theme + palette — `theme_dissertation()` in
+`Dissertation/analyses/01_quant_main/scripts/R/05_figures.R`, matched to
+`Preambles/header.tex`'s palette (primary-blue/gold, jet, light-bg).
