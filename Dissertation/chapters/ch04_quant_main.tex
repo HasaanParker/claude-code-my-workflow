@@ -14,50 +14,305 @@
 \chapter{Aid Competition across Spheres of Influence: Quantitative Evidence}
 \label{ch:quant}
 
-\textit{Placeholder.} The empirical core. Short-run allocation models by region,
-an instrumental-variables strategy for Chinese aid exposure, and a long-run
-dynamics test establish whether US and Chinese aid race or diverge across
-contested spheres.
+The empirical core of the dissertation. Short-run allocation models, an
+instrumental-variables strategy for Chinese aid exposure, and a long-run
+dynamics test are brought to bear on whether US and Chinese aid race or diverge
+across spheres of influence. The short answer, developed over the sections
+below, is that the sign flip H1 predicts does not appear under any
+operationalization tried here, that what positive association remains is
+sensitive to how differential trends are handled, and that the instrument
+intended to settle the question has no first stage.
 
 \section{Data}
 \label{sec:quant-data}
-\textit{Placeholder.} AidData Global Chinese Development Finance (GCDF) for
-Chinese official finance; OECD-DAC Creditor Reporting System (CRS) for US and
-other DAC aid. Unit of analysis: recipient-country $\times$ year. Sample period,
-coverage, and the sphere-of-influence covariates defined in
-Chapter~\ref{ch:theory}.
+The panel merges two sources at the recipient-country (ISO-3) $\times$ year
+level: OECD-DAC Creditor Reporting System (DAC3A) commitments for US official
+development assistance (ODA), 1970--2022, constant 2022 USD; and AidData Global
+Chinese Development Finance (GCDF) 3.0, project-level Chinese official finance
+aggregated to country-year, commitment years 2000--2021. Two Chinese-finance
+measures are carried in parallel: \texttt{china\_all} (all
+recommended-for-aggregates flows -- ODA-like, OOF-like, and vague official
+finance) and \texttt{china\_oda} (ODA-like flows only). The balanced panel spans
+150 US-recipient countries, 1970--2022 (7{,}950 country-years); Chinese finance
+is 0 by construction outside 2000--2021 and for country-years with no recorded
+project. Region is assigned from ISO-3 via continent, not the GCDF
+\texttt{Recipient Region} field, so it is defined identically for both donors.
+Controls (GDP per capita, population; World Bank WDI) and a UNGA ideal-point
+alignment distance from the US (Voeten, Sep.\ 2023 release; session $\to$ year
+via session $1=1946$) are merged in as the sphere-of-influence ingredient
+introduced in Chapter~\ref{ch:theory} -- an alignment covariate, not yet the
+finished SOI construct.
 
 \section{Empirical strategy}
 \label{sec:quant-strategy}
-\textit{Placeholder.} Short-run allocation model with country and year fixed
-effects; identification concerns; the Dreher/Zeitz-style shift-share instrument
-(Chinese steel production $\times$ recipient exposure) developed in
-\texttt{analyses/03\_iv\_robustness/}; and the panel-VAR / Granger test of
-long-run co-evolution in \texttt{analyses/04\_var\_dynamics/}.
+The baseline is a short-run allocation model with country and year fixed
+effects:
+\[
+\log(\text{US aid}_{i,t} + 1) = \beta \log(\text{China aid}_{i,t-1} + 1) + \alpha_i + \gamma_t + \varepsilon_{i,t}
+\]
+fit pooled and separately by region, for both China measures, with
+country-clustered standard errors. $\beta$ is a short-run elasticity of US aid
+to lagged Chinese finance -- the sign test for H1 (race vs.\ withdrawal). An
+extended specification adds $\log(\text{gdppc})$, $\log(\text{pop})$, and the
+lagged US-alignment distance as controls. IV (Dreher et al.\ shift-share:
+Chinese steel production $\times$ recipient exposure) and the panel-VAR /
+Granger test of long-run co-evolution are developed in
+\texttt{analyses/03\_iv\_robustness/} and \texttt{analyses/04\_var\_dynamics/}
+respectively.
 
 \section{Results}
 \label{sec:quant-results}
-\textit{Placeholder.} Main short-run results table:
+Table~\ref{tab:main} reports the baseline elasticity by region and China
+measure.
 
-% \input{tables/table_main.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
+\input{tables/table_main.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
 
-\textit{Placeholder.} Report the headline pattern here once the pipeline is run:
-a positive US--China aid correlation in Africa
-(prospectus: $+0.113$)                                %% source: analyses/01_quant_main/scripts/R/03_analyze.R
-and negative correlations outside Africa, consistent with H1.
+Figure~\ref{fig:coef-region} plots the same estimates with 95\% confidence
+intervals.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{fig_coef_by_region.pdf}
+\caption{Short-run elasticity of US ODA to lagged Chinese finance, by region and China-finance measure. 95\% CIs.}
+\label{fig:coef-region}
+\end{figure}
+% source: analyses/01_quant_main/scripts/R/05_figures.R
+
+\paragraph{Estimation sample.} All estimates below are fit on \textbf{2000--2021},
+not the full 1970--2022 panel. GCDF~3.0 covers commitment years 2000--2021 only,
+so Chinese finance is zero for 1970--1999 \emph{by construction} -- that is an
+absence of coverage, not an absence of finance. Those rows carry no treatment
+variation but still shape the fixed effects, so a recipient whose US aid trended
+upward across the same decades in which Chinese finance first appeared registers
+as a positive response. Estimating on the full panel inflates every elasticity
+in this chapter, in some cases by a factor of three.\footnote{Pre-China-baseline
+US-aligned bloc: $0.251$ on the full panel, $0.082$ on 2000--2021. Europe:
+$0.493$ vs.\ $0.229$. See the 2026-09-15 session log.} The restriction also
+brings this chapter into line with the panel VAR of \S\ref{sec:quant-var},
+which was specified on 2000--2021 from the outset.
+
+\paragraph{Reading against H1.} With standard errors clustered by country and
+the sample restricted as above, the all-official-finance elasticity is positive
+almost everywhere but reaches conventional significance only in the pooled
+sample ($0.053$, $p=.007$).            %% source: analyses/01_quant_main/scripts/R/03_analyze.R
+Europe is marginal ($0.229$, $p=.064$); Africa ($0.039$, $p=.317$), Americas
+($0.046$, $p=.175$), Asia ($0.015$, $p=.519$), and Oceania ($0.061$, $p=.383$)
+are not distinguishable from zero. \emph{Africa is not a significant positive
+effect on this vintage} -- a genuine discrepancy with the Dec 2024 prospectus's
+reported $+0.113$ Africa-only pattern (negative elsewhere): the point estimate's
+direction still matches, but the magnitude does not, Africa is not
+distinguishable from zero, and no region shows the negative coefficient the
+``withdrawal outside Africa'' half of H1 requires. Table~\ref{tab:controls}
+(controls lagged like the treatment, avoiding a predetermined-vs-contemporaneous
+mismatch) leaves the pooled effect intact but smaller ($0.039$, $p=.015$) and
+removes Europe's marginal significance. Candidate explanations for the vintage
+discrepancy -- not adjudicated -- are the GCDF release (the prospectus likely
+used 2.0 rather than 3.0) and the US ODA input file (the working recipe notes a
+since-superseded \texttt{usa oda commits.csv} was swapped for the current DAC3A
+extract). None of this was tuned to force a match to $+0.113$, per the project's
+replication and anti-p-hacking discipline. \textbf{Caveat on Europe and
+Oceania:} both cluster on only 11 countries, below the conventional 20--50
+minimum for cluster-robust asymptotics, so read those cells cautiously
+regardless of point estimate.
+
+\input{tables/table_controls.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
+
+\subsection{Re-operationalizing sphere of influence}
+\label{sec:quant-soi}
+Section~\ref{sec:soi-operational} replaces continent with an alignment-based
+SOI bloc (China-aligned / Contested / US-aligned, from UNGA ideal-point
+distance, terciled \emph{within the US-aid-recipient sample} and within year,
+lagged -- not against the full $\sim$190-country UN membership, so blocs mean
+``relative to other aid recipients,'' not ``relative to Canada and the
+UK'').\footnote{Checked as a robustness question, not a free design choice:
+terciling against the full UN membership instead reproduces the same
+qualitative pattern (if anything with a slightly larger US-aligned
+coefficient and looser $p$-value), so this is a parsimony choice -- it needs
+no extra justification for the reference population -- not one that changes
+the finding. See the 2026-09-14 session log.} Table~\ref{tab:soi} re-runs the
+identical baseline specification on this cut instead of region.
+
+\input{tables/table_soi.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{fig_coef_by_soi.pdf}
+\caption{Short-run elasticity of US ODA to lagged Chinese finance, by alignment-based SOI bloc. 95\% CIs.}
+\label{fig:coef-soi}
+\end{figure}
+% source: analyses/01_quant_main/scripts/R/05_figures.R
+
+\paragraph{This is not the pattern H1 predicts.} H1 predicts the race
+(significant positive elasticity) in \emph{Contested} spheres and withdrawal
+(negative) where China has effectively already won the recipient
+(\emph{China-aligned}). Instead: Contested is not significant
+(all-official-finance: $0.030$, $p=.193$)                %% source: analyses/01_quant_main/scripts/R/03_analyze.R
+; China-aligned is null ($0.011$, $p=.546$), not the predicted negative; and
+the largest and only significant elasticity is in \textbf{US-aligned}
+countries ($0.071$, $p=.020$) -- recipients where the US has \emph{already}
+secured alignment, not the contested middle.
+
+\paragraph{The endogeneity test, and what it revealed.} UN-voting alignment is
+itself partly \emph{caused} by US aid, so a one-year lag does not sever the
+loop: a country is US-aligned at $t-1$ partly because of US aid at $t-2$,
+$t-3$, and that relationship persists into $t$. To break this, bloc assignment
+was re-frozen on a pre-China baseline (mean \texttt{rel\_align} over
+1990--1999, terciled once, time-invariant, so it is predetermined relative to
+every China-era flow tested; 135 of 150 recipients have sufficient pre-period
+coverage). The US-aligned result survives that test --- $0.082$, $p=.018$,
+with Contested ($0.005$) and China-aligned ($0.035$) both null --- and
+leave-one-country-out across all 45 US-aligned recipients is stable, so it is
+not an outlier artifact.
+
+\textbf{It does not, however, survive country-specific linear trends}
+(Table~\ref{tab:soi-trends}): the pooled elasticity falls from $0.053$ to
+$-0.002$ ($p=.900$), and US-aligned from $0.082$ to $0.025$ ($p=.158$). This
+is the honest boundary of the result. Country trends can over-absorb --- if
+Chinese finance grows smoothly within a recipient and US aid responds
+progressively, the trend consumes the effect --- so this is reported as
+robustness rather than as the primary specification. But the range it implies
+is wide: somewhere between a modest positive association and nothing. The
+panel VAR of \S\ref{sec:quant-var}, which finds no lagged cross-donor effect
+in either direction on the same window, is consistent with the lower end of
+that range.
+
+\input{tables/table_soi_controls.tex}     %% source: analyses/01_quant_main/scripts/R/04_tables.R
+
+\input{tables/table_soi_trends.tex}       %% source: analyses/01_quant_main/scripts/R/04_tables.R
+
+\paragraph{Reading this against H1.} Two things can be said with confidence and
+one cannot. \emph{With confidence:} under two different, non-overlapping
+operationalizations of ``sphere of influence'' -- continent
+(\S\ref{sec:quant-results}) and UN-voting alignment, the latter in both a
+$t-1$ and a fully predetermined pre-China form -- the short-run lagged-FE
+strategy does not recover the sign flip H1 predicts. No cut produces a
+significant race in the contested middle, and no cut produces the significant
+negative that ``withdrawal'' requires. \emph{Also with confidence:} whatever
+positive association exists is concentrated among recipients already aligned
+with the US, not among contested ones.
+
+\emph{What cannot yet be said} is whether that concentration is a finding or an
+artifact of differential trending. A candidate reading is
+\emph{reinforcement} -- the US topping up recipients it has already secured
+when China enters, rather than contesting the middle -- which would be a
+different mechanism from H1, not a weaker version of it. The composition of the
+US-aligned bloc is suggestive on this point: it is dominated by
+NATO/EU-accession-track and post-Soviet states, Pacific compact states, and the
+Western Hemisphere, i.e.\ places where the US has standing institutional
+architecture rather than places where alignment is genuinely up for grabs. But
+the trends specification removes the effect, and a mechanism story should not
+be built on an estimate that a standard robustness check can erase.
+Adjudicating this requires identification the current design does not supply --
+the instrumental-variables strategy of \S\ref{sec:quant-iv} is the natural next
+step. See the 2026-09-14 and 2026-09-15 session logs.
 
 \section{Instrumental-variables robustness}
 \label{sec:quant-iv}
-\textit{Placeholder.} IV estimates and first-stage diagnostics:
+The estimates above are associational: they cannot distinguish a US response to
+Chinese entry from Chinese entry into places US aid was already moving. The
+standard fix in this literature is the shift-share instrument used by Dreher,
+Fuchs, Parks, Strange and Tierney (2021): interact a national, year-varying
+measure of China's supply-side
+capacity with a recipient-specific measure of exposure to Chinese finance,
+\[
+Z_{i,t} = \ln(\text{Chinese crude steel production}_{t-1}) \times \text{exposure}_i .
+\]
+Steel production comes from the World Steel Association series in their
+replication package (1990--2015, which bounds this section's sample to
+2000--2015); exposure is built from Bartke's historical record of Chinese aid
+as the share of 1970--1999 years in which a recipient received a Chinese
+project. That pre-period share is \emph{predetermined} relative to every flow
+tested here, which is the property a shift-share design requires.
 
-% \input{tables/table_iv.tex}       %% source: analyses/03_iv_robustness/scripts/R/04_tables.R
+\input{tables/table_iv.tex}     %% source: analyses/03_iv_robustness/scripts/R/04_tables.R
+
+\paragraph{The instrument does not transfer to this design.} With the
+predetermined share, there is no first stage: the first-stage coefficient on
+$Z_{i,t}$ is $-0.527$ ($t=-0.36$, $F=0.27$) for all official finance, and only
+$F=6.3$ --- below the conventional threshold --- for ODA-like flows.       %% source: analyses/03_iv_robustness/scripts/R/03_analyze.R
+The 2SLS estimates that follow are correspondingly uninformative ($-2.47$ with
+a standard error of $7.65$). This is not a marginal-power problem to be
+reported with caveats; it is an absence of identifying variation.
+
+\paragraph{Why it fails, and why that is substantively interesting.}
+Figure~\ref{fig:iv-first-stage} shows that pre-2000 exposure \emph{does} predict
+post-2000 Chinese finance across recipients ($r=0.48$, $p<10^{-9}$). But that
+predictive content is entirely cross-sectional, and the country fixed effects
+this design requires absorb all of it. What remains for identification is the
+interaction's within-country variation --- which, because Chinese steel
+production rose near-monotonically over the window, is approximately a
+country-specific linear trend scaled by exposure. Identification therefore
+demands that historically-exposed recipients saw \emph{differentially steeper}
+growth in Chinese finance. They did not: 68\% of recipients with no recorded
+pre-2000 Chinese aid received Chinese finance anyway after 2000. China's
+expansion in this period was broad-based rather than a deepening of existing
+ties, and that fact --- interesting in its own right --- is precisely what
+destroys the instrument.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{fig_iv_first_stage.pdf}
+\caption{Pre-2000 Chinese-aid exposure against post-2000 Chinese finance, by recipient. The relationship is real but cross-sectional, and country fixed effects absorb it.}
+\label{fig:iv-first-stage}
+\end{figure}
+% source: analyses/03_iv_robustness/scripts/R/05_figures.R
+
+\paragraph{A caution about the published specification.} Dreher et al.'s
+headline share is computed over the \emph{study window} (2000--2014) rather
+than a pre-period. Substituting that contemporaneous share here does produce a
+strong first stage ($F=27.3$), but the share is then constructed from the same
+post-2000 Chinese-finance variation the instrument exists to purge, so its
+power is mechanical rather than evidence of identification. Notably, even
+taking it at face value, the resulting 2SLS estimate is insignificant
+($0.321$, $p=.196$). The contrast between the two share definitions is
+reported in Table~\ref{tab:iv} for exactly this reason.
+
+\paragraph{What this means for the chapter.} Two independent limitations now
+point the same way. The instrument is approximately a country-specific trend,
+so it cannot be combined with the trend specification of
+\S\ref{sec:quant-soi} --- it is vulnerable to the same confound rather than a
+remedy for it. And it has no first stage under the only share definition that
+would make it valid. The identification problem this section was meant to
+solve therefore remains open, and the associational estimates of
+\S\S\ref{sec:quant-results}--\ref{sec:quant-soi} should be read as descriptive.
 
 \section{Long-run dynamics}
 \label{sec:quant-var}
-\textit{Placeholder.} Panel-VAR impulse responses / Granger-causality:
+The short-run model treats each year's China-aid shock as if it fully resolves
+within one period. A bivariate panel VAR in $(\log \text{US aid}, \log
+\text{China aid})$, fit by system GMM (Blundell-Bond; Abrigo and Love 2016)
+over the double-donor era (2000--2021, 150 countries, balanced), tests whether
+the relationship is a genuine lead--lag dynamic rather than a same-year
+coincidence -- using the \texttt{china\_all} measure only in this pass
+(\texttt{china\_oda} is a documented, not-yet-run extension).
 
-% \input{tables/table_var.tex}      %% source: analyses/04_var_dynamics/scripts/R/04_tables.R
-% \includegraphics{fig_irf}         %% source: analyses/04_var_dynamics/scripts/R/05_figures.R
+\input{tables/table_var.tex}     %% source: analyses/04_var_dynamics/scripts/R/04_tables.R
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_irf.pdf}
+\caption{Orthogonal impulse responses, bivariate panel VAR, 95\% bootstrap CI (200 draws).}
+\label{fig:irf}
+\end{figure}
+% source: analyses/04_var_dynamics/scripts/R/05_figures.R
+
+\paragraph{Reading the VAR.} Neither lagged cross-donor term is significant:
+lagged China aid does not predict future US aid ($-0.013$, $p=.40$) and lagged
+US aid does not predict future China aid ($-0.075$, $p=.56$)                %% source: analyses/04_var_dynamics/scripts/R/03_analyze.R
+-- each series is driven mainly by its own persistence (US: $0.475$, China:
+$0.225$, both $p<.001$). The system is stable (companion-matrix eigenvalues
+$0.48$ and $0.22$, inside the unit circle). This is a genuinely different
+picture from Section~\ref{sec:quant-results}'s significant positive short-run
+elasticities: once identification is handled via system GMM (rather than
+two-way FE) and the sample is restricted to the double-donor era, there is no
+detectable lagged Granger-style response in either direction. Two readings are
+live and not yet adjudicated: (i) the FE elasticities capture a genuine
+same-year co-movement that a one-year-lag VAR is too coarse to detect, or (ii)
+the FE elasticities partly reflect a common trend/shock that year and country
+FEs do not fully absorb. \textbf{Caveat:} the Hansen overidentification test
+rejects ($\chi^2(28)=100.22$, $p<.001$) -- the instrument set may not be fully
+valid, so the VAR point estimates should be read as suggestive pending an
+instrument-count/validity check, not as a confirmed null.
 
 \section{Robustness}
 \label{sec:quant-robustness}

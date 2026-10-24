@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering
+\caption{Robustness: adding GDP per capita, population, and US-alignment distance (by SOI bloc)}
+\label{tab:soi-controls}
+\begin{tabular}{lcc}
+\toprule
+SOI bloc (t-1) & China (all official finance) & China (ODA-like only) \\
+\midrule
+Pooled & 0.039** & 0.030** \\
+ & (0.016) & (0.014) \\
+ & [N=3057, 143 ctry] & [N=3057, 143 ctry] \\[2pt]
+China-aligned & 0.009 & -0.005 \\
+ & (0.019) & (0.018) \\
+ & [N=995, 99 ctry] & [N=995, 99 ctry] \\[2pt]
+Contested & 0.030 & 0.034* \\
+ & (0.020) & (0.018) \\
+ & [N=1021, 117 ctry] & [N=1021, 117 ctry] \\[2pt]
+US-aligned & 0.072** & 0.061** \\
+ & (0.029) & (0.029) \\
+ & [N=1006, 87 ctry] & [N=1006, 87 ctry] \\[2pt]
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}
+\vspace{4pt}
+\footnotesize Coefficient on log(lagged China finance + 1) from
+log(US ODA + 1) $\sim$ log(China finance$_{t-1}$ + 1) with year and
+country fixed effects; SEs clustered by country. * p<0.10, ** p<0.05, *** p<0.01.
+\end{minipage}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Bivariate panel VAR: US and Chinese aid, 2000--2021 (system GMM)}
+\label{tab:var}
+\begin{tabular}{lccc}
+\toprule
+ & US aid (log, $t-1$) & China aid (log, $t-1$) & Constant \\
+\midrule
+US aid (log, $t$) & 0.475*** & -0.013 & 8.164*** \\
+ & (0.110) & (0.016) & (1.748) \\[2pt]
+China aid (log, $t$) & -0.075 & 0.225*** & 9.755*** \\
+ & (0.129) & (0.048) & (2.124) \\[2pt]
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}
+\vspace{4pt}
+\footnotesize Two-step system GMM, forward-orthogonal-deviations, collapsed
+instruments; Windmeijer-corrected SEs in parens. * p<0.10, ** p<0.05, *** p<0.01.
+Hansen J test of overidentifying restrictions: $\chi^2(28) = 100.22$, $p < 0.001$ --
+\textbf{rejects} at conventional levels (34 instruments over 150 groups); interpret with caution.
+Stability: companion-matrix eigenvalues all lie inside the unit circle.
+\end{minipage}
+\end{table}
