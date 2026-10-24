@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering
+\caption{Shift-share IV for Chinese finance: first-stage diagnostics by share definition}
+\label{tab:iv}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Exposure share & 1st-stage coef. & 1st-stage $t$ & 1st-stage $F$ & 2SLS estimate \\
+\midrule
+Predetermined (1970--99) & -0.527 & -0.36 & 0.27 & -2.466 \\
+ & & & & (7.648) \\[2pt]
+Contemporaneous (2000--15) & 3.089 & 4.97 & 27.33 & 0.321 \\
+ & & & & (0.247) \\[2pt]
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.92\textwidth}
+\vspace{4pt}
+\footnotesize Instrument $=\ln(\text{Chinese crude steel production}_{t-1})\times\text{exposure share}_i$,
+following Dreher, Fuchs, Parks, Strange and Tierney (2021). Outcome is $\log(\text{US ODA}+1)$,
+endogenous regressor $\log(\text{Chinese official finance}_{t-1}+1)$; year and country fixed
+effects, SEs clustered by country. Sample 2000--2015 (bounded by the WSA steel series).
+OLS on the same sample: $0.036$**. * p<0.10, ** p<0.05, *** p<0.01.
+\textbf{Read this table as a diagnosis, not an estimate.} The predetermined share is the
+methodologically valid one and produces no first stage. The contemporaneous share is
+constructed from the same post-2000 Chinese-finance variation the instrument is meant to
+purge, so its first-stage power is mechanical rather than evidence the design identifies
+anything. Neither 2SLS column supports inference.
+\end{minipage}
+\end{table}

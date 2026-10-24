@@ -12,15 +12,38 @@ whether the recipient lies within a contested sphere of influence and on the
 type of good the aid delivers.
 
 \section{Spheres of influence, operationalized}
-\textit{Placeholder.} Define ``sphere of influence'' in a way that is measurable
-in the aid data (geographic, historical-ties, and voting-alignment components).
-This operationalization is what Chapter~\ref{ch:quant} tests and refines.
+\label{sec:soi-operational}
+The first-pass operationalization used continent as a stand-in for ``sphere of
+influence.'' That was always a coarse proxy -- continent doesn't distinguish a
+country firmly in the US camp from a genuinely contested neighbor -- and
+Chapter~\ref{ch:quant} shows the region cut produces a diffuse, largely
+non-significant pattern once standard errors are handled correctly. The
+refined operationalization (voting-alignment component only; geographic
+proximity and historical-ties components are not yet built) uses each
+country's UN General Assembly ideal point (Voeten, Sep.\ 2023 release) to
+locate it relative to both powers:
+\[
+\text{rel\_align}_{i,t} = |\text{ideal}_{i,t} - \text{ideal}_{\text{CHN},t}| - |\text{ideal}_{i,t} - \text{ideal}_{\text{US},t}|
+\]
+Large positive values mean a country votes far from China and close to the US
+(\emph{US-aligned}); large negative values mean the reverse (\emph{China-aligned});
+values near zero mean the country is roughly equidistant --
+genuinely \emph{contested}. Countries are terciled into these three blocs
+\textbf{within year} (ideal-point scales are not necessarily comparable across
+UNGA sessions) \textbf{and within the US-aid-recipient sample} (not the full
+UN membership, so a bloc means ``relative to other aid recipients''), using
+the bloc as of $t-1$ so this year's aid decision cannot
+retroactively define the very bloc it is tested against. This SOI measure is
+tested directly in Chapter~\ref{ch:quant}.
 
 \section{H1: Aid races vs.\ aid withdrawal}
-\textit{Placeholder.} \textbf{H1.} In contested spheres, US and Chinese aid
-co-move positively (a race); outside them, US aid falls as Chinese aid rises
-(withdrawal). The prospectus finding of $+0.113$ in Africa and negative
-correlations elsewhere is the motivating pattern this hypothesis rationalizes.
+\textbf{H1.} In contested spheres, US and Chinese aid co-move positively (a
+race); where the US has effectively already lost a recipient to China, US aid
+falls as Chinese aid rises (withdrawal) -- a country already secured in the
+US's own camp carries no sharp prediction either way. The prospectus finding
+of $+0.113$ in Africa and negative correlations elsewhere was the original
+motivating pattern; Chapter~\ref{ch:quant} tests this directly against the
+alignment-based SOI blocs above, and the result is not what H1 predicts.
 
 \section{H2: Private vs.\ public goods delivery}
 \textit{Placeholder.} \textbf{H2.} The race is sharper where aid is delivered

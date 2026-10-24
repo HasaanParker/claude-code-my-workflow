@@ -1,0 +1,35 @@
+\begin{table}[htbp]
+\centering
+\caption{Robustness: adding GDP per capita, population, and US-alignment distance (by region)}
+\label{tab:controls}
+\begin{tabular}{lcc}
+\toprule
+Region & China (all official finance) & China (ODA-like only) \\
+\midrule
+Pooled & 0.039** & 0.030** \\
+ & (0.016) & (0.014) \\
+ & [N=3057, 143 ctry] & [N=3057, 143 ctry] \\[2pt]
+Africa & 0.002 & 0.000 \\
+ & (0.016) & (0.016) \\
+ & [N=1126, 54 ctry] & [N=1126, 54 ctry] \\[2pt]
+Americas & 0.047 & 0.026 \\
+ & (0.029) & (0.038) \\
+ & [N=704, 32 ctry] & [N=704, 32 ctry] \\[2pt]
+Asia & 0.004 & 0.006 \\
+ & (0.022) & (0.012) \\
+ & [N=799, 37 ctry] & [N=799, 37 ctry] \\[2pt]
+Europe & 0.135 & 0.086 \\
+ & (0.077) & (0.066) \\
+ & [N=213, 10 ctry] & [N=213, 10 ctry] \\[2pt]
+Oceania & 0.054 & 0.072 \\
+ & (0.053) & (0.077) \\
+ & [N=215, 10 ctry] & [N=215, 10 ctry] \\[2pt]
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}
+\vspace{4pt}
+\footnotesize Coefficient on log(lagged China finance + 1) from
+log(US ODA + 1) $\sim$ log(China finance$_{t-1}$ + 1) with year and
+country fixed effects; SEs clustered by country. * p<0.10, ** p<0.05, *** p<0.01.
+\end{minipage}
+\end{table}

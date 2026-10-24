@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering
+\caption{Robustness: adding country-specific linear trends (pre-China baseline blocs)}
+\label{tab:soi-trends}
+\begin{tabular}{lcc}
+\toprule
+SOI bloc (1990s-frozen) & China (all official finance) & China (ODA-like only) \\
+\midrule
+Pooled & -0.002 & -0.005 \\
+ & (0.012) & (0.010) \\
+ & [N=3300, 150 ctry] & [N=3300, 150 ctry] \\[2pt]
+China-aligned & -0.005 & -0.010 \\
+ & (0.027) & (0.018) \\
+ & [N=990, 45 ctry] & [N=990, 45 ctry] \\[2pt]
+Contested & -0.037** & -0.027** \\
+ & (0.016) & (0.013) \\
+ & [N=990, 45 ctry] & [N=990, 45 ctry] \\[2pt]
+US-aligned & 0.025 & 0.006 \\
+ & (0.017) & (0.017) \\
+ & [N=990, 45 ctry] & [N=990, 45 ctry] \\[2pt]
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}
+\vspace{4pt}
+\footnotesize Coefficient on log(lagged China finance + 1) from
+log(US ODA + 1) $\sim$ log(China finance$_{t-1}$ + 1) with year and
+country fixed effects; SEs clustered by country. * p<0.10, ** p<0.05, *** p<0.01.
+\end{minipage}
+\end{table}
